@@ -1,30 +1,35 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import { connectToDatabase } from "./database";
 import { biraloRouter } from "./Routes/biralo.routes";
+import mongoose from "mongoose";
+import expressSession from 'express-session';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
 const { ATLAS_URI } = process.env;
 
-if (!ATLAS_URI) {
-    console.error(
-        "No ATLAS_URI environment variable has been defined in config.env"
-    );
-    process.exit(1);
-}
+const app = express();
+const port = 5200;
 
-connectToDatabase(ATLAS_URI)
-    .then(() => {
-        const app = express();
-        app.use(cors());
+mongoose.connect(ATLAS_URI!).then((_) => {
+    console.log('Successfully connected to MongoDB.');
+}).catch(error => {
+    console.log(error);
+    return;
+});
 
-        app.use("/biralok", biraloRouter);
+mongoose.connection.useDb("BiroDatabase");
 
-        // start the Express server
-        app.listen(5200, () => {
-            console.log(`Server running at http://localhost:5200...`);
-        });
-    })
-    .catch((error) => console.error(error));
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use('/biralo_db', biraloRouter);
+
+app.listen(port, () => {
+    console.log('Server is listening on port ' + port.toString());
+});
+
+console.log('After server is ready.');

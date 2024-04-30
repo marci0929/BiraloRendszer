@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  name: string = '';
   errorMessage: string = '';
 
   constructor(private router: Router, private authService: AuthService) { }
@@ -18,7 +19,7 @@ export class LoginComponent {
     setTimeout(() => {
       if (this.email && this.password) {
         this.errorMessage = '';
-        this.authService.login(this.email, this.password).subscribe({
+        this.authService.login(this.name, this.email, this.password).subscribe({
           next: (data) => {
             if (data) {
               this.router.navigateByUrl('/user-management');

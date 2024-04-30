@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './model/User';
 
@@ -18,35 +18,38 @@ export class AuthService {
     return this.isLoggedIn_;
   }
 
-  login(email: string, password: string) {
+  login(name: string, email: string, pass: string) {
     const body = new URLSearchParams();
-    body.set('username', email);
-    body.set('password', password);
+    body.set('email', email);
+    body.set('pass', pass);
+    body.set('name', name);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5200/app/login', body, { headers: headers, withCredentials: true });
+    return this.http.post('http://localhost:5200/biralo_db/login', body, { headers: headers, withCredentials: true });
   }
 
   register(user: User) {
     const body = new URLSearchParams();
+    body.set('email', user.email);
+    body.set('pass', user.pass);
     body.set('name', user.name);
-    body.set('password', user.password);
+    console.log(user);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post('http://localhost:5200/app/register', body, { headers: headers });
+    return this.http.post('http://localhost:5200/biralo_db/register', body, { headers: headers });
   }
 
   logout() {
-    return this.http.post('http://localhost:5200/app/logout', {}, { withCredentials: true, responseType: 'text' });
+    return this.http.post('http://localhost:5200/biralo_db/logout', {}, { withCredentials: true, responseType: 'text' });
   }
 
   checkAuth() {
-    return this.http.get<boolean>('http://localhost:5200/app/checkAuth', { withCredentials: true });
+    return this.http.get<boolean>('http://localhost:5200/biralo_db/checkAuth', { withCredentials: true });
   }
 }
