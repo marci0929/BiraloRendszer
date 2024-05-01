@@ -5,38 +5,26 @@
     <a routerLink="/register">Regisztráció</a>
   </div>
 
-  <div class="links" *ngIf="authService.isLoggedIn != 0">
-    <a routerLink="/logout">Kijelentkezés</a>
-  </div>
-
   <!-- Biralo oldalai  -->
   <div class="biralo" *ngIf="authService.isLoggedIn === 1">
-    <div class="waiting_for_approval">
-      <a routerLink="/waitingApproval">Bírálatra vár</a>
-    </div>
+    <a routerLink="/waitingApproval">Bírálatra vár</a>
   </div>
 
   <!-- Szerkeszto oldalai -->
   <div class="szerkeszto" *ngIf="authService.isLoggedIn === 2">
-    <div class="add_biralo">
-      <a routerLink="/addBiralo">Birálók hozzárendelése</a>
-    </div>
-    <div class="select_publication">
-      <a routerLink="/selectPublication">Publikáció kiválasztása</a>
-    </div>
-    <div class="review_publication">
-      <a routerLink="/reviewPublication">Publickáció értékelése</a>
-    </div>
+    <a routerLink="/addBiralo">Birálók hozzárendelése</a>
+    <a routerLink="/selectPublication">Publikáció kiválasztása</a>
+    <a routerLink="/reviewPublication">Publickáció értékelése</a>
   </div>
 
   <!-- Szerzo oldalai -->
   <div class="szerzo" *ngIf="authService.isLoggedIn === 3">
-    <div class="new_publication">
-      <a routerLink="/newPublication">Új publikáció</a>
-    </div>
-    <div class="my_publications">
-      <a routerLink="/myPublications">Publikációim</a>
-    </div>
+    <a routerLink="/newPublication">Új publikáció</a>
+    <a routerLink="/myPublications">Publikációim</a>
+  </div>
+
+  <div class="links" *ngIf="authService.isLoggedIn != 0">
+    <a routerLink="/logout">Kijelentkezés</a>
   </div>
 </div>
 <router-outlet></router-outlet>

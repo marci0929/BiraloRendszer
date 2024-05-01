@@ -1,15 +1,24 @@
 import express from "express";
 import cors from "cors";
-import { biraloRouter } from "./Routes/biralo.routes";
+import { makeRouter } from "./Routes/biralo.routes";
 import expressSession from 'express-session';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { initConnection } from "./connection";
+import passport from 'passport';
+import { configurePassport } from './passport/passport';
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
 
 const app = express();
 const port = 5200;
 
-initConnection()
+// initConnection()
+
+dotenv.config();
+const { ATLAS_URI } = process.env;
+
+mongoose.connect(ATLAS_URI!, {});
 
 const whitelist = ['*', 'http://localhost:4200']
 const corsOptions = {
@@ -23,10 +32,21 @@ const corsOptions = {
     credentials: true
 };
 
+const sessionOptions: expressSession.SessionOptions = {
+    secret: 'mysecret',
+    resave: false,
+    saveUninitialized: false
+};
+app.use(expressSession(sessionOptions));
+
+app.use(passport.initialize());
+app.use(passport.session());
+configurePassport(passport);
+
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/biralodb', biraloRouter);
+app.use('/biralodb', makeRouter(passport));
 
 app.listen(port, () => {
     console.log('Server is listening on port ' + port.toString());
