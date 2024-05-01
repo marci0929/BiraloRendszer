@@ -10,13 +10,12 @@
         email.</p>
     </div>
     <input formControlName="name" type="text" placeholder="Name" />
-    <input formControlName="password" type="password" placeholder="Password" required
-      [ngClass]="{'invalid-input': signupForm.get('password')?.errors}" />
-    <div
-      *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">
-      <p *ngIf="signupForm.get('password')?.errors && signupForm.get('password')?.errors!['required']">Password is
+    <input formControlName="pass" type="password" placeholder="Password" required
+      [ngClass]="{'invalid-input': signupForm.get('pass')?.errors}" />
+    <div *ngIf="signupForm.get('pass')?.invalid && (signupForm.get('pass')?.dirty || signupForm.get('pass')?.touched)">
+      <p *ngIf="signupForm.get('pass')?.errors && signupForm.get('pass')?.errors!['required']">Password is
         required.</p>
-      <p *ngIf="signupForm.get('password')?.errors && signupForm.get('password')?.errors!['minlength']">Password must be
+      <p *ngIf="signupForm.get('pass')?.errors && signupForm.get('pass')?.errors!['minlength']">Password must be
         at least 6 characters.</p>
     </div>
     <input formControlName="confirmPassword" type="password" placeholder="Confirm password" required

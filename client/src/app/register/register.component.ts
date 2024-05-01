@@ -20,10 +20,10 @@ export class RegisterComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: [''],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      pass: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, {
-      validator: this.mustMatch('password', 'confirmPassword')
+      validator: this.mustMatch('pass', 'confirmPassword')
     })
   }
 
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     console.log('Form data:', this.signupForm.value);
-    const user: User = { email: this.signupForm.value["email"], name: this.signupForm.value["name"], pass: this.signupForm.value["password"] };
+    const user: User = { email: this.signupForm.value["email"], name: this.signupForm.value["name"], pass: this.signupForm.value["pass"] };
     this.authService.register(this.signupForm.value).subscribe({
       next: (data) => {
         console.log(data);

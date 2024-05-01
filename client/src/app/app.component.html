@@ -1,8 +1,12 @@
 <div class="header">
   <h1>Publikáció bíráló weboldal</h1>
-  <div class="links">
+  <div class="links" *ngIf="authService.isLoggedIn == 0">
     <a routerLink="/login">Bejelentkezés</a>
     <a routerLink="/register">Regisztráció</a>
+  </div>
+
+  <div class="links" *ngIf="authService.isLoggedIn != 0">
+    <a routerLink="/logout">Kijelentkezés</a>
   </div>
 
   <!-- Biralo oldalai  -->
