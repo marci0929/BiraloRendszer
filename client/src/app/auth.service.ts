@@ -35,6 +35,7 @@ export class AuthService {
     body.set('email', user.email);
     body.set('pass', user.pass);
     body.set('name', user.name);
+    body.set('rank', user.rank);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

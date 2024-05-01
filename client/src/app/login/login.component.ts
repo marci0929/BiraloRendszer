@@ -25,9 +25,10 @@ export class LoginComponent {
       this.authService.login(this.email, this.pass).subscribe({
         next: (data) => {
           if (data) {
+            console.log(data)
+
             AuthService.isLoggedIn_ = 1;
-            console.log(AuthService.isLoggedIn_)
-            this.navigate('/home');
+            this.navigate('/');
           }
         }, error: (err) => {
           console.log(err);

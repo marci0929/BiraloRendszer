@@ -9,9 +9,12 @@
       <p *ngIf="signupForm.get('email')?.errors && signupForm.get('email')?.errors!['email']">Please enter a valid
         email.</p>
     </div>
+    <br>
     <input formControlName="name" type="text" placeholder="Name" />
+    <br>
     <input formControlName="pass" type="password" placeholder="Password" required
       [ngClass]="{'invalid-input': signupForm.get('pass')?.errors}" />
+    <br>
     <div *ngIf="signupForm.get('pass')?.invalid && (signupForm.get('pass')?.dirty || signupForm.get('pass')?.touched)">
       <p *ngIf="signupForm.get('pass')?.errors && signupForm.get('pass')?.errors!['required']">Password is
         required.</p>
@@ -27,20 +30,14 @@
       <p *ngIf="signupForm.get('confirmPassword')?.errors && signupForm.get('confirmPassword')?.errors!['mustMatch']">
         Passwords must match.</p>
     </div>
-    <form class="radio">
-      <div>
-        <label for="biralo">Bíráló</label>
-        <input type="radio" id="biralo" name="rang" value="biralo" checked>
-      </div>
-      <div>
-        <label for="szerkeszto">Szerkesztő</label>
-        <input type="radio" id="szerkeszto" name="rang" value="szerkeszto">
-      </div>
-      <div>
-        <label for="szerzo">Szerző</label>
-        <input type="radio" id="szerzo" name="rang" value="szerzo">
-      </div>
-    </form>
+    <br>
+    <div class="radio">
+      <mat-radio-group formControlName="rank">
+        <mat-radio-button value="biralo">Bíráló</mat-radio-button>
+        <mat-radio-button value="szerkeszto">Szerkesztő</mat-radio-button>
+        <mat-radio-button value="szerzo">Szerző</mat-radio-button>
+      </mat-radio-group>
+    </div>
     <button type="submit">Regisztráció</button>
   </form>
 </body>

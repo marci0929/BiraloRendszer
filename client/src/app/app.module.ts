@@ -14,10 +14,10 @@ import { LogoutComponent } from './logout/logout.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    RegisterComponent,
     LogoutComponent
   ],
   imports: [
+    RegisterComponent,
     LoginComponent,
     BrowserModule,
     AppRoutingModule,
