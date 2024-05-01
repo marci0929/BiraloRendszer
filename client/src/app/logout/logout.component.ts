@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,8 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     AuthService.isLoggedIn_ = 0;
+    this.authService.logout();
     this.router.navigateByUrl("/home");
+
   }
 }

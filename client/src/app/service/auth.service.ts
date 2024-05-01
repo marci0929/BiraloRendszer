@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from './model/User';
+import { User } from '../model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class AuthService {
 
   login(email: string, pass: string) {
     const body = new URLSearchParams();
-    body.set('email', email);
-    body.set('pass', pass);
+    body.set('username', email);
+    body.set('password', pass);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

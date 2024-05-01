@@ -41,12 +41,13 @@ app.use(expressSession(sessionOptions));
 
 app.use(passport.initialize());
 app.use(passport.session());
-configurePassport(passport);
 
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/biralodb', makeRouter(passport));
+
+configurePassport(passport);
 
 app.listen(port, () => {
     console.log('Server is listening on port ' + port.toString());

@@ -13,11 +13,6 @@ export function makeRouter(passport: PassportStatic) {
 
 
     biraloRouter.post('/register', async (req: Request, res: Response) => {
-        // let collection = getDB().collection("Users");
-        // let newDocument = req.body;
-        // let result = await collection.insertOne(newDocument);
-        // res.send(result).status(204);
-
         const email = req.body.email;
         const pass = req.body.pass;
         const name = req.body.name;
@@ -32,31 +27,31 @@ export function makeRouter(passport: PassportStatic) {
     });
 
     biraloRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-        passport.authenticate('local', (error: string | null, user: typeof User) => {
-            if (error) {
-                console.log(error);
-                res.status(500).send(error);
-            } else {
-                if (!user) {
-                    res.status(400).send('User not found.');
+        passport.authenticate('local',
+            {
+                successRedirect: '/home',
+                failureRedirect: '/login',
+                failureFlash: true
+            },
+            (error: string | null, user: typeof User) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).send(error);
                 } else {
-                    req.login(user, (err: string | null) => {
-                        if (err) {
-                            console.log(err);
-                            res.status(500).send('Internal server error.');
-                        } else {
-                            res.status(200).send(user);
-                        }
-                    });
+                    if (!user) {
+                        res.status(400).send('User not found.');
+                    } else {
+                        req.login(user, (err: string | null) => {
+                            if (err) {
+                                console.log(err);
+                                res.status(500).send('Internal server error.');
+                            } else {
+                                res.status(200).send(user);
+                            }
+                        });
+                    }
                 }
-            }
-        })(req, res, next);
-
-        // let collection = getDB().collection("Users");
-        // let query = { email: req.body.email, pass: req.body.pass };
-        // let result = await collection.findOne(query);
-        // if (!result) res.send("Not found").status(404);
-        // else res.send(result).status(200);
+            })(req, res, next);
     });
 
     biraloRouter.post('/logout', (req: Request, res: Response) => {

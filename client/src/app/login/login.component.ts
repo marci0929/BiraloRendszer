@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../service/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -25,6 +25,7 @@ export class LoginComponent {
       this.errorMessage = '';
       this.authService.login(this.email, this.pass).subscribe({
         next: (data) => {
+          console.log(data)
           if (data) {
             let rank = (data as User).rank;
             let rank_val = 0;

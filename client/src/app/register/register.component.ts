@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioButton, MatRadioModule, MatRadioGroup } from '@angular/material/radio'
 import { User } from '../model/User';
@@ -64,17 +64,17 @@ export class RegisterComponent implements OnInit {
     };
     this.authService.register(this.signupForm.value).subscribe({
       next: (data) => {
-        // let rank = this.signupForm.value["rank"]
-        // let rank_val = 0;
-        // switch (rank) {
-        //   case "biralo": rank_val = 1;
-        //     break;
-        //   case "szerkeszto": rank_val = 2;
-        //     break;
-        //   case "szerzo": rank_val = 3;
-        //     break;
-        // }
-        // AuthService.isLoggedIn_ = rank_val;
+        let rank = this.signupForm.value["rank"]
+        let rank_val = 0;
+        switch (rank) {
+          case "biralo": rank_val = 1;
+            break;
+          case "szerkeszto": rank_val = 2;
+            break;
+          case "szerzo": rank_val = 3;
+            break;
+        }
+        AuthService.isLoggedIn_ = rank_val;
         this.router.navigateByUrl("/home");
         console.log(data);
       }, error: (err) => {
