@@ -6,6 +6,8 @@ import { ObjectId } from "../../node_modules/mongodb";
 import { PassportStatic } from "passport";
 import { User } from "../Model/User";
 import { Publication } from "../Model/Publikacio";
+import { NewPublicationComponent } from '../../../client/src/app/new-publication/new-publication.component';
+import { PubUserConnection } from "../Model/PubUserConnection";
 
 
 export function makeRouter(passport: PassportStatic) {
@@ -83,7 +85,12 @@ export function makeRouter(passport: PassportStatic) {
         const content = req.body.content;
         let publication = new Publication({ id, pubName, content });
 
-        publication.save().then(data => {
+        publication.save();
+
+        const pubEmail = req.body.userEmail;
+        let pubUserConn = new PubUserConnection({ pubId: id, userEmail: pubEmail });
+
+        pubUserConn.save().then(data => {
             res.status(200).send(data);
         }).catch(error => {
             res.status(500).send(error);

@@ -1,7 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
-const SALT_FACTOR = 10;
-
 interface IPublication extends Document {
     id: number;
     pubName: string;
