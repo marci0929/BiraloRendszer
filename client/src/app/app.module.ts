@@ -21,7 +21,6 @@ import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.co
     AppComponent,
     HomeComponent,
     LogoutComponent,
-    NewPublicationComponent,
     MyPublicationsComponent,
     AddBiraloComponent,
     SelectPublicationComponent,
@@ -29,6 +28,7 @@ import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.co
     WaitingApprovalComponent
   ],
   imports: [
+    NewPublicationComponent,
     RegisterComponent,
     LoginComponent,
     BrowserModule,

@@ -1,29 +1,29 @@
 <div class="header">
   <h1>Publikáció bíráló weboldal</h1>
-  <div class="links" *ngIf="authService.isLoggedIn == 0">
+  <div class="links" *ngIf="getUserRank() == '0'">
     <a routerLink="/login">Bejelentkezés</a>
     <a routerLink="/register">Regisztráció</a>
   </div>
 
   <!-- Biralo oldalai  -->
-  <div class="biralo" *ngIf="authService.isLoggedIn === 1">
+  <div class="biralo" *ngIf="getUserRank() == '1'">
     <a routerLink="/waitingApproval">Bírálatra vár</a>
   </div>
 
   <!-- Szerkeszto oldalai -->
-  <div class="szerkeszto" *ngIf="authService.isLoggedIn === 2">
+  <div class="szerkeszto" *ngIf="getUserRank() == '2'">
     <a routerLink="/addBiralo">Birálók hozzárendelése</a>
     <a routerLink="/selectPublication">Publikáció kiválasztása</a>
     <a routerLink="/reviewPublication">Publickáció értékelése</a>
   </div>
 
   <!-- Szerzo oldalai -->
-  <div class="szerzo" *ngIf="authService.isLoggedIn === 3">
+  <div class="szerzo" *ngIf="getUserRank() == '3'">
     <a routerLink="/newPublication">Új publikáció</a>
     <a routerLink="/myPublications">Publikációim</a>
   </div>
 
-  <div class="links" *ngIf="authService.isLoggedIn != 0">
+  <div class="links" *ngIf="getUserRank() != '0'">
     <a routerLink="/logout">Kijelentkezés</a>
   </div>
 </div>

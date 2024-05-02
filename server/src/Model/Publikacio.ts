@@ -1,9 +1,17 @@
-import * as mongodb from "mongodb";
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
-export interface Publikacio {
+const SALT_FACTOR = 10;
+
+interface IPublication extends Document {
+    id: number;
+    pubName: string;
     content: string;
-    review: string;
-    biralok: mongodb.ObjectId[];
-    biralatStat: [mongodb.ObjectId, boolean][]
-    _id?: mongodb.ObjectId;
 }
+
+const PublicationSchema: Schema<IPublication> = new mongoose.Schema({
+    id: { type: Number, required: true },
+    pubName: { type: String, required: true },
+    content: { type: String, required: true },
+});
+
+export const Publication: Model<IPublication> = mongoose.model<IPublication>('Publication', PublicationSchema, 'Publications');

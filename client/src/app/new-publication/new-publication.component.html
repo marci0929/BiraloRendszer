@@ -1,7 +1,9 @@
 <div class="container">
-  <label for="publication-name">Publikáció neve:</label>
-  <input type="text" id="publication-name" class="text-input">
-  <label for="publication-content">Publikáció tartalma:</label>
-  <textarea id="publication-content" rows="10" class="text-input"></textarea>
-  <button class="submit-button" type="submit">Publikáció beküldése</button>
+  <form class="publication_form" (ngSubmit)="submitPublication()">
+    <label for="publication-name">Publikáció neve:</label>
+    <input type="text" id="publication-name" class="text-input-name">
+    <label for="publication-content">Publikáció tartalma:</label>
+    <textarea id="publication-content" rows="10" class="text-input"></textarea>
+    <button class="submit-button" type="submit">Publikáció beküldése</button>
+  </form>
 </div>

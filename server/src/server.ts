@@ -13,12 +13,10 @@ import * as dotenv from "dotenv";
 const app = express();
 const port = 5200;
 
-// initConnection()
-
 dotenv.config();
 const { ATLAS_URI } = process.env;
 
-mongoose.connect(ATLAS_URI!, {});
+let db = mongoose.connect(ATLAS_URI!, {});
 
 const whitelist = ['*', 'http://localhost:4200']
 const corsOptions = {

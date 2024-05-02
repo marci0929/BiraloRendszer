@@ -1,4 +1,4 @@
-.container {
+.publication_form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,11 @@
 
 .text-input {
   width: 75%;
+  margin-bottom: 20px;
+}
+
+.text-input-name {
+  width: 50%;
   margin-bottom: 20px;
 }
 

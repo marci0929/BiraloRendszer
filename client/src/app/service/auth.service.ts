@@ -6,7 +6,6 @@ import { User } from '../model/User';
   providedIn: 'root'
 })
 export class AuthService {
-  public static isLoggedIn_: number = 0;
   // 0: not logged in
   // 1: biralo logged in
   // 2: szerkeszto logged in
@@ -14,9 +13,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  get isLoggedIn(): number {
-    return AuthService.isLoggedIn_;
-  }
 
   login(email: string, pass: string) {
     const body = new URLSearchParams();

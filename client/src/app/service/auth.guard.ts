@@ -2,6 +2,7 @@ import { CanActivateFn } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { getUserRank } from '../app.component';
 
 export const authGuard: CanActivateFn = (route, state) => {
   return true;
@@ -15,7 +16,7 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(): boolean {
-    if (this.authService.isLoggedIn == 0) {
+    if (getUserRank() == '0') {
       this.router.navigate(['/']);
       return false;
     } else {

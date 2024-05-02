@@ -5,6 +5,7 @@ import { getDB } from '../connection'
 import { ObjectId } from "../../node_modules/mongodb";
 import { PassportStatic } from "passport";
 import { User } from "../Model/User";
+import { Publication } from "../Model/Publikacio";
 
 
 export function makeRouter(passport: PassportStatic) {
@@ -77,17 +78,18 @@ export function makeRouter(passport: PassportStatic) {
     });
 
     biraloRouter.post('/addPublication', async (req: Request, res: Response) => {
-        let collection = getDB().collection("Publications");
-        let newDocument = req.body;
-        let result = await collection.insertOne(newDocument);
-        res.send(result).status(204);
-    });
+        const id = (await Publication.countDocuments()) + 1;
+        const pubName = req.body.pubName;
+        const content = req.body.content;
+        let publication = new Publication({ id, pubName, content });
 
-    biraloRouter.get('/countDocuments:collection', async (req, res) => {
-        let collection = getDB().collection(req.params.collection);
-        let results = await collection.countDocuments();
-        res.send(results).status(200);
-    })
+        publication.save().then(data => {
+            res.status(200).send(data);
+        }).catch(error => {
+            res.status(500).send(error);
+        })
+
+    });
 
     biraloRouter.get('/', async (req, res) => {
         let collection = getDB().collection("Users");

@@ -12,7 +12,7 @@ export class LogoutComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    AuthService.isLoggedIn_ = 0;
+    sessionStorage.setItem("user_rank", "0");
     this.authService.logout();
     this.router.navigateByUrl("/home");
 

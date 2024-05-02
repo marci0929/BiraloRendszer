@@ -74,7 +74,8 @@ export class RegisterComponent implements OnInit {
           case "szerzo": rank_val = 3;
             break;
         }
-        AuthService.isLoggedIn_ = rank_val;
+        sessionStorage.setItem("user_rank", rank_val.toString());
+        sessionStorage.setItem("currentUserEmail", user.email);
         this.router.navigateByUrl("/home");
         console.log(data);
       }, error: (err) => {

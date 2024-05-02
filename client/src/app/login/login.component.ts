@@ -37,7 +37,8 @@ export class LoginComponent {
               case "szerzo": rank_val = 3;
                 break;
             }
-            AuthService.isLoggedIn_ = rank_val;
+            sessionStorage.setItem("user_rank", rank_val.toString());
+            sessionStorage.setItem("currentUserEmail", this.email);
             this.navigate('/');
           }
         }, error: (err) => {

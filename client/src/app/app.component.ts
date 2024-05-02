@@ -13,6 +13,14 @@ export class AppComponent {
   constructor(public authService: AuthService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-
   }
+
+  getUserRank() {
+    return sessionStorage.getItem('user_rank');
+  }
+
+}
+
+export function getUserRank() {
+  return sessionStorage.getItem('user_rank');
 }

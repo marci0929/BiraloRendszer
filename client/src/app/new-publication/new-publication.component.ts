@@ -1,14 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-publication',
   templateUrl: './new-publication.component.html',
-  styleUrl: './new-publication.component.scss'
+  styleUrl: './new-publication.component.scss',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
 })
 export class NewPublicationComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   submitPublication() {
     const headers = new HttpHeaders({
@@ -18,19 +23,14 @@ export class NewPublicationComponent {
     let pubName = (<HTMLInputElement>document.getElementById('publication-name')).value;
     let content = (<HTMLInputElement>document.getElementById('publication-content')).value;
 
-    this.http.get('http://localhost:5200/biralodb/countDocuments', { params: { "collection": "Publications" } }).subscribe({
-      next: (data) => {
-        let numDocs = data as number;
-        const body = new URLSearchParams();
-        body.set('id', (numDocs + 1).toString());
-        body.set('name', pubName);
-        body.set('content', content);
+    const body = new URLSearchParams();
+    body.set('pubName', pubName);
+    body.set('content', content);
+    body.set('userEmail', sessionStorage.getItem("currentUserEmail") ?? "");
+    console.log(body)
 
-
-        return this.http.post('http://localhost:5200/biralodb/addPublication', body, { headers: headers, withCredentials: true });
-      }
-    }
-    )
-
+    this.http.post('http://localhost:5200/biralodb/addPublication', body, { headers: headers, withCredentials: true }).subscribe(data => { },
+      error => { console.log(error) },
+      () => { this.router.navigateByUrl("/myPublications") });
   }
 }
