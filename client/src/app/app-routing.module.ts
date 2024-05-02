@@ -11,10 +11,12 @@ import { SelectPublicationComponent } from './select-publication/select-publicat
 import { ReviewPublicationComponent } from './review-publication/review-publication.component';
 import { NewPublicationComponent } from './new-publication/new-publication.component';
 import { MyPublicationsComponent } from './my-publications/my-publications.component';
+import { ViewPublicationComponent } from './view-publication/view-publication.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'waitingApproval', component: WaitingApprovalComponent },
+  { path: 'viewPublication/:id', component: ViewPublicationComponent },
   { path: 'addBiralo', component: AddBiraloComponent },
   { path: 'selectPublication', component: SelectPublicationComponent },
   { path: 'reviewPublication', component: ReviewPublicationComponent },

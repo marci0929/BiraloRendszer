@@ -95,37 +95,25 @@ export function makeRouter(passport: PassportStatic) {
         }).catch(error => {
             res.status(500).send(error);
         })
-
     });
 
-    biraloRouter.get('/', async (req, res) => {
-        let collection = getDB().collection("Users");
-        let results = await collection.find({})
-            .limit(50)
-            .toArray();
-        res.send(results).status(200);
-    })
+    biraloRouter.get('/getPublicationsForEmail:email', async (req: Request, res: Response) => {
+        let pubIdsForEmail = await PubUserConnection.find({ userEmail: req.query.email });
+        let pubIds: number[] = new Array<number>();
 
-    biraloRouter.get("/:id", async (req, res) => {
-        let collection = getDB().collection("Users");
-        let query = { _id: new ObjectId(req.params.id) };
-        let result = await collection.findOne(query);
-        if (!result) res.send("Not found").status(404);
-        else res.send(result).status(200);
+        for (let pub of pubIdsForEmail) {
+            pubIds.push(pub["pubId"])
+        }
+
+        let pubs = await Publication.find({ id: { $in: pubIds } });
+
+        res.send(pubs).status(200);
     });
 
-    biraloRouter.post("/", async (req, res) => {
-        let collection = getDB().collection("Users");
-        let newDocument = req.body;
-        let result = await collection.insertOne(newDocument);
-        res.send(result).status(204);
-    });
-
-    biraloRouter.delete("/:id", async (req, res) => {
-        const query = { _id: new ObjectId(req.params.id) };
-        const collection = getDB().collection("Users");
-        let result = await collection.deleteOne(query);
-        res.send(result).status(200);
+    biraloRouter.get('/getPublicationById:id', async (req: Request, res: Response) => {
+        let pubIdsForEmail = await Publication.findOne({ id: req.query.id });
+        console.log(req.query.id)
+        res.send(pubIdsForEmail).status(200);
     });
 
     return biraloRouter;

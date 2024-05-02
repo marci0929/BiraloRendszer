@@ -15,19 +15,21 @@ import { AddBiraloComponent } from './add-biralo/add-biralo.component';
 import { SelectPublicationComponent } from './select-publication/select-publication.component';
 import { ReviewPublicationComponent } from './review-publication/review-publication.component';
 import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.component';
+import { ViewPublicationComponent } from './view-publication/view-publication.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LogoutComponent,
-    MyPublicationsComponent,
     AddBiraloComponent,
     SelectPublicationComponent,
     ReviewPublicationComponent,
-    WaitingApprovalComponent
+    WaitingApprovalComponent,
   ],
   imports: [
+    ViewPublicationComponent,
+    MyPublicationsComponent,
     NewPublicationComponent,
     RegisterComponent,
     LoginComponent,
