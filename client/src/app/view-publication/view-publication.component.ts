@@ -29,6 +29,12 @@ export class ViewPublicationComponent implements OnInit {
         this.pubName = (data as any)["pubName"]
         this.pubContent = (data as any)["content"];
       }, error => console.log(error));
+
+    this.http.get('http://localhost:5200/biralodb/reviewById:id',
+      { params: { "id": this.route.snapshot.paramMap.get('id') ?? "" } }).subscribe(data => {
+        console.log(data);
+        this.reviewContent = (data as any)["reviewContent"];
+      }, error => console.log(error));
   }
 
   getUserRank() {

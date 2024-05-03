@@ -137,5 +137,10 @@ export function makeRouter(passport: PassportStatic) {
         res.send(pubIdsForEmail).status(200);
     });
 
+    biraloRouter.get('/reviewById:id', async (req: Request, res: Response) => {
+        let pubReview = await PublicationReview.findOne({ pubId: req.query.id });
+        res.send(pubReview).status(200);
+    });
+
     return biraloRouter;
 }

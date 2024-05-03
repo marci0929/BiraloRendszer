@@ -9,7 +9,7 @@
   <div *ngIf="getUserRank() == '2'">
     <form (ngSubmit)="saveReview()">
       <label for="review">Véleményezés:</label>
-      <textarea id="review" rows="10" class="text-input"></textarea>
+      <textarea id="review" rows="10" class="text-input">{{reviewContent}}</textarea>
       <button class="submit-button" type="submit">Publikáció beküldése</button>
     </form>
   </div>
