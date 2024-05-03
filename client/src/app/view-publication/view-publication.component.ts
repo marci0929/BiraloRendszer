@@ -23,6 +23,7 @@ export class ViewPublicationComponent implements OnInit {
   reviewContent: string = ""
   reviewSaved: boolean = false;
   biraloLista: User[] = new Array<User>();
+  hozzarendeltBiralok: [string, string][] = new Array<[string, string]>();
 
   ngOnInit(): void {
     this.http.get('http://localhost:5200/biralodb/getPublicationById:id',
@@ -44,6 +45,23 @@ export class ViewPublicationComponent implements OnInit {
           for (let biralo of (data as any[])) {
             this.biraloLista.push({ name: (biralo as any)["name"], pass: "", email: (biralo as any)["email"], rank: "biralo" });
           }
+        }, error => console.log(error));
+    }
+
+    if (this.getUserRank() == "3") {
+      this.http.get('http://localhost:5200/biralodb/getBiralokForPub:pubId',
+        { params: { "pubId": this.route.snapshot.paramMap.get('id') ?? "" } }).subscribe(data => {
+          this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
+            { params: { "email": (data as any)["biralo1_email"] } }).subscribe(biro1 => {
+              this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
+                { params: { "email": (data as any)["biralo2_email"] } }).subscribe(biro2 => {
+                  if (data != undefined) {
+                    this.hozzarendeltBiralok.push([(biro1 as any)["name"], ((data as any)["biralo1_approved"] as boolean) ? "Elfogadva" : "Elutasítva"]);
+                    this.hozzarendeltBiralok.push([(biro2 as any)["name"], ((data as any)["biralo2_approved"] as boolean) ? "Elfogadva" : "Elutasítva"]);
+                  }
+                }, error => console.log(error));
+
+            }, error => console.log(error));
         }, error => console.log(error));
     }
   }

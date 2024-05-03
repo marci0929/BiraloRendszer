@@ -1,4 +1,14 @@
 <div class="main-div">
+  <div *ngIf="getUserRank() == '3'">
+    <div *ngIf="hozzarendeltBiralok[0] != undefined">
+      1. Bíráló: {{hozzarendeltBiralok[0][0]}}
+      Értékelés: {{hozzarendeltBiralok[0][1]}}
+    </div>
+    <div *ngIf="hozzarendeltBiralok[1] != undefined">
+      2. Bíráló: {{hozzarendeltBiralok[1][0]}}
+      Értékelés: {{hozzarendeltBiralok[1][1]}}
+    </div>
+  </div>
   <h1>{{pubName}}</h1>
   <div>{{pubContent}}</div>
 

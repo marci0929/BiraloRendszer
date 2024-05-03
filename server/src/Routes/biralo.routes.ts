@@ -167,5 +167,15 @@ export function makeRouter(passport: PassportStatic) {
         });
     });
 
+    biraloRouter.get('/getBiralokForPub:pubId', async (req: Request, res: Response) => {
+        let biralok = await BiraloPubConnection.findOne({ pubId: req.query.pubId });
+        res.send(biralok).status(200);
+    });
+
+    biraloRouter.get('/getUserByEmail:email', async (req: Request, res: Response) => {
+        let user = await User.findOne({ email: req.query.email });
+        res.send(user).status(200);
+    });
+
     return biraloRouter;
 }
