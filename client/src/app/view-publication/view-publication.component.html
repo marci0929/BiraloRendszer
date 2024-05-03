@@ -26,5 +26,19 @@
       <textarea id="review" rows="10" class="text-input">{{reviewContent}}</textarea>
       <button class="submit-button" type="submit">Publikáció beküldése</button>
     </form>
+
+    <form (ngSubmit)="setBiralok()">
+      <label for="biralo_1">1. bíráló kiválasztása:</label>
+      <select id="biralo_1" name="biralok">
+        <option *ngFor="let biralo of biraloLista" value="{{biralo.email}}">{{biralo.name}} ({{biralo.email}})</option>
+      </select>
+
+      <label for="biralo_2">2. bíráló kiválasztása:</label>
+      <select id="biralo_2" name="biralok">
+        <option *ngFor="let biralo of biraloLista" value="{{biralo.email}}">{{biralo.name}} ({{biralo.email}})</option>
+      </select>
+
+      <button class="submit-button" type="submit">Bírálók mentése</button>
+    </form>
   </div>
 </div>

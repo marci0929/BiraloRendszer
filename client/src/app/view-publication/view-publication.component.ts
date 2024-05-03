@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Publication } from '../model/Publication';
 import { ActivatedRoute } from "@angular/router";
+import { User } from '../model/User';
 
 @Component({
   selector: 'app-view-publication',
@@ -21,6 +22,7 @@ export class ViewPublicationComponent implements OnInit {
   pubContent: string = ""
   reviewContent: string = ""
   reviewSaved: boolean = false;
+  biraloLista: User[] = new Array<User>();
 
   ngOnInit(): void {
     this.http.get('http://localhost:5200/biralodb/getPublicationById:id',
@@ -35,6 +37,15 @@ export class ViewPublicationComponent implements OnInit {
         console.log(data);
         this.reviewContent = (data as any)["reviewContent"];
       }, error => console.log(error));
+
+    if (this.getUserRank() == "2") {
+      this.http.get('http://localhost:5200/biralodb/getUsersByRank:rank',
+        { params: { "rank": "biralo" } }).subscribe(data => {
+          for (let biralo of (data as any[])) {
+            this.biraloLista.push({ name: (biralo as any)["name"], pass: "", email: (biralo as any)["email"], rank: "biralo" });
+          }
+        }, error => console.log(error));
+    }
   }
 
   getUserRank() {
@@ -52,12 +63,32 @@ export class ViewPublicationComponent implements OnInit {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    this.http.post('http://localhost:5200/biralodb/saveReview', body, { headers: headers })
+    return this.http.post('http://localhost:5200/biralodb/saveReview', body, { headers: headers })
       .subscribe(
         data => { this.reviewSaved = true },
         error => console.log(error),
         () => { setTimeout(() => { this.reviewSaved = false; }, 2000) });
+  }
 
+  setBiralok() {
+    const body = new URLSearchParams();
+    let biralo1_email = (<HTMLInputElement>document.getElementById('biralo_1')).value;
+    let biralo2_email = (<HTMLInputElement>document.getElementById('biralo_2')).value;
 
+    body.set('pubId', this.route.snapshot.paramMap.get('id') ?? "");
+    body.set('biralo1_email', biralo1_email);
+    body.set('biralo2_email', biralo2_email);
+    body.set('biralo1_approved', "false");
+    body.set('biralo2_approved', "false");
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post('http://localhost:5200/biralodb/addBiraloToPub', body, { headers: headers })
+      .subscribe(
+        data => { },
+        error => console.log(error),
+        () => { });
   }
 }

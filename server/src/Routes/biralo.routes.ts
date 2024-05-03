@@ -9,6 +9,7 @@ import { Publication } from "../Model/Publikacio";
 import { NewPublicationComponent } from '../../../client/src/app/new-publication/new-publication.component';
 import { PubUserConnection } from "../Model/PubUserConnection";
 import { PublicationReview } from "../Model/PublicationReview";
+import { BiraloPubConnection } from "../Model/BiraloPubConnection";
 
 
 export function makeRouter(passport: PassportStatic) {
@@ -117,6 +118,11 @@ export function makeRouter(passport: PassportStatic) {
         res.send(pubs).status(200);
     });
 
+    biraloRouter.get('/getUsersByRank:rank', async (req: Request, res: Response) => {
+        let usersByRank = await User.find({ rank: req.query.rank });
+        res.send(usersByRank).status(200);
+    });
+
     biraloRouter.post('/saveReview', async (req: Request, res: Response) => {
         const filter = { pubId: req.body.pubId };
         const update = { reviewContent: req.body.reviewContent };
@@ -140,6 +146,25 @@ export function makeRouter(passport: PassportStatic) {
     biraloRouter.get('/reviewById:id', async (req: Request, res: Response) => {
         let pubReview = await PublicationReview.findOne({ pubId: req.query.id });
         res.send(pubReview).status(200);
+    });
+
+    biraloRouter.post('/addBiraloToPub', async (req: Request, res: Response) => {
+        const filter = { pubId: req.body.pubId };
+        const update = {
+            biralo1_email: req.body.biralo1_email,
+            biralo2_email: req.body.biralo2_email,
+            biralo1_approved: req.body.biralo1_approved,
+            biralo2_approved: req.body.biralo2_approved,
+        };
+
+        BiraloPubConnection.findOneAndUpdate(filter, update, {
+            new: true,
+            upsert: true
+        }).then(data => {
+            res.status(200).send(data);
+        }).catch(error => {
+            res.status(500).send(error);
+        });
     });
 
     return biraloRouter;
