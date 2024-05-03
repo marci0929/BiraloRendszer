@@ -2,6 +2,20 @@
   <h1>{{pubName}}</h1>
   <div>{{pubContent}}</div>
 
+  <div *ngIf="getUserRank() != '2'">
+    <div *ngIf="reviewContent == ''; else elseBlock">
+      Nem érkezett még értékelés.
+    </div>
+    <ng-template #elseBlock>
+      <div>
+        Szerkesztő értékelése:
+        <p>
+          {{reviewContent}}
+        </p>
+      </div>
+    </ng-template>
+  </div>
+
   <div class="overlay" *ngIf="reviewSaved">
     Review saved!
   </div>

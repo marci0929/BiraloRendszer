@@ -7,7 +7,6 @@ import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
 import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.component';
 import { AddBiraloComponent } from './add-biralo/add-biralo.component';
-import { SelectPublicationComponent } from './select-publication/select-publication.component';
 import { ReviewPublicationComponent } from './review-publication/review-publication.component';
 import { NewPublicationComponent } from './new-publication/new-publication.component';
 import { MyPublicationsComponent } from './my-publications/my-publications.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
   { path: 'waitingApproval', component: WaitingApprovalComponent },
   { path: 'viewPublication/:id', component: ViewPublicationComponent },
   { path: 'addBiralo', component: AddBiraloComponent },
-  { path: 'selectPublication', component: SelectPublicationComponent },
   { path: 'reviewPublication', component: ReviewPublicationComponent },
   { path: 'newPublication', component: NewPublicationComponent },
   { path: 'myPublications', component: MyPublicationsComponent },

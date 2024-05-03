@@ -12,7 +12,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { NewPublicationComponent } from './new-publication/new-publication.component';
 import { MyPublicationsComponent } from './my-publications/my-publications.component';
 import { AddBiraloComponent } from './add-biralo/add-biralo.component';
-import { SelectPublicationComponent } from './select-publication/select-publication.component';
 import { ReviewPublicationComponent } from './review-publication/review-publication.component';
 import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.component';
 import { ViewPublicationComponent } from './view-publication/view-publication.component';
@@ -23,7 +22,6 @@ import { ViewPublicationComponent } from './view-publication/view-publication.co
     HomeComponent,
     LogoutComponent,
     AddBiraloComponent,
-    SelectPublicationComponent,
     ReviewPublicationComponent,
     WaitingApprovalComponent,
   ],
