@@ -1,4 +1,16 @@
 <div class="main-div">
   <h1>{{pubName}}</h1>
   <div>{{pubContent}}</div>
+
+  <div class="overlay" *ngIf="reviewSaved">
+    Review saved!
+  </div>
+
+  <div *ngIf="getUserRank() == '2'">
+    <form (ngSubmit)="saveReview()">
+      <label for="review">Véleményezés:</label>
+      <textarea id="review" rows="10" class="text-input"></textarea>
+      <button class="submit-button" type="submit">Publikáció beküldése</button>
+    </form>
+  </div>
 </div>

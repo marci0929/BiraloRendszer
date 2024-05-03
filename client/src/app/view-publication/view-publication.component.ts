@@ -19,6 +19,8 @@ export class ViewPublicationComponent implements OnInit {
 
   pubName: string = ""
   pubContent: string = ""
+  reviewContent: string = ""
+  reviewSaved: boolean = false;
 
   ngOnInit(): void {
     this.http.get('http://localhost:5200/biralodb/getPublicationById:id',
@@ -27,5 +29,29 @@ export class ViewPublicationComponent implements OnInit {
         this.pubName = (data as any)["pubName"]
         this.pubContent = (data as any)["content"];
       }, error => console.log(error));
+  }
+
+  getUserRank() {
+    return sessionStorage.getItem('user_rank');
+  }
+
+  saveReview() {
+    const body = new URLSearchParams();
+    let reviewContent = (<HTMLInputElement>document.getElementById('review')).value;
+
+    body.set('pubId', this.route.snapshot.paramMap.get('id') ?? "");
+    body.set('reviewContent', reviewContent);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    this.http.post('http://localhost:5200/biralodb/saveReview', body, { headers: headers })
+      .subscribe(
+        data => { this.reviewSaved = true },
+        error => console.log(error),
+        () => { setTimeout(() => { this.reviewSaved = false; }, 2000) });
+
+
   }
 }

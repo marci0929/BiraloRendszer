@@ -1,1 +1,12 @@
-<p>review-publication works!</p>
+<div class="main-div">
+  <h2>Publikációik listája:</h2>
+  <tr *ngFor="let pub of publications">
+    <td>
+      {{pub.name}}
+    </td>
+
+    <td>
+      <button type="button" id={{pub.id}} (click)="reviewPublication(pub.id!)">Megnyitás</button>
+    </td>
+  </tr>
+</div>

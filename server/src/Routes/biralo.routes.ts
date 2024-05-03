@@ -8,6 +8,7 @@ import { User } from "../Model/User";
 import { Publication } from "../Model/Publikacio";
 import { NewPublicationComponent } from '../../../client/src/app/new-publication/new-publication.component';
 import { PubUserConnection } from "../Model/PubUserConnection";
+import { PublicationReview } from "../Model/PublicationReview";
 
 
 export function makeRouter(passport: PassportStatic) {
@@ -108,6 +109,26 @@ export function makeRouter(passport: PassportStatic) {
         let pubs = await Publication.find({ id: { $in: pubIds } });
 
         res.send(pubs).status(200);
+    });
+
+    biraloRouter.get('/getAllPublication', async (req: Request, res: Response) => {
+        let pubs = await Publication.find();
+
+        res.send(pubs).status(200);
+    });
+
+    biraloRouter.post('/saveReview', async (req: Request, res: Response) => {
+        const filter = { pubId: req.body.pubId };
+        const update = { reviewContent: req.body.reviewContent };
+
+        PublicationReview.findOneAndUpdate(filter, update, {
+            new: true,
+            upsert: true
+        }).then(data => {
+            res.status(200).send(data);
+        }).catch(error => {
+            res.status(500).send(error);
+        });
     });
 
     biraloRouter.get('/getPublicationById:id', async (req: Request, res: Response) => {
