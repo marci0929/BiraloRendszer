@@ -1,5 +1,5 @@
 <div class="main-div">
-  <div *ngIf="getUserRank() == '3'">
+  <div *ngIf="getUserRank() != 'biralo'">
     <div *ngIf="hozzarendeltBiralok[0] != undefined">
       1. Bíráló: {{hozzarendeltBiralok[0][0]}}
       Értékelés: {{hozzarendeltBiralok[0][1]}}
@@ -9,10 +9,19 @@
       Értékelés: {{hozzarendeltBiralok[1][1]}}
     </div>
   </div>
+  <ng-template #elseBlock>
+    <div>
+      Bírálat elfogadása:
+      <form>
+        <button type="submit">Elfogadás</button>
+        <button type="submit">Elutasítás</button>
+      </form>
+    </div>
+  </ng-template>
   <h1>{{pubName}}</h1>
   <div>{{pubContent}}</div>
 
-  <div *ngIf="getUserRank() != '2'">
+  <div *ngIf="getUserRank() != 'szerkeszto'">
     <div *ngIf="reviewContent == ''; else elseBlock">
       Nem érkezett még értékelés.
     </div>
@@ -30,25 +39,27 @@
     Review saved!
   </div>
 
-  <div *ngIf="getUserRank() == '2'">
+  <div *ngIf="getUserRank() == 'szerkeszto'">
     <form (ngSubmit)="saveReview()">
       <label for="review">Véleményezés:</label>
       <textarea id="review" rows="10" class="text-input">{{reviewContent}}</textarea>
       <button class="submit-button" type="submit">Publikáció beküldése</button>
     </form>
 
-    <form (ngSubmit)="setBiralok()">
+    <form (ngSubmit)="setBiralo1()">
       <label for="biralo_1">1. bíráló kiválasztása:</label>
       <select id="biralo_1" name="biralok">
         <option *ngFor="let biralo of biraloLista" value="{{biralo.email}}">{{biralo.name}} ({{biralo.email}})</option>
       </select>
+      <button class="submit-button" type="submit">1. Bíráló mentése</button>
+    </form>
 
+    <form (ngSubmit)="setBiralo2()">
       <label for="biralo_2">2. bíráló kiválasztása:</label>
       <select id="biralo_2" name="biralok">
         <option *ngFor="let biralo of biraloLista" value="{{biralo.email}}">{{biralo.name}} ({{biralo.email}})</option>
       </select>
-
-      <button class="submit-button" type="submit">Bírálók mentése</button>
+      <button class="submit-button" type="submit">2. Bíráló mentése</button>
     </form>
   </div>
 </div>

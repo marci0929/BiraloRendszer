@@ -39,7 +39,7 @@ export class ViewPublicationComponent implements OnInit {
         this.reviewContent = (data as any)["reviewContent"];
       }, error => console.log(error));
 
-    if (this.getUserRank() == "2") {
+    if (this.getUserRank() == "szerkeszto") {
       this.http.get('http://localhost:5200/biralodb/getUsersByRank:rank',
         { params: { "rank": "biralo" } }).subscribe(data => {
           for (let biralo of (data as any[])) {
@@ -48,20 +48,18 @@ export class ViewPublicationComponent implements OnInit {
         }, error => console.log(error));
     }
 
-    if (this.getUserRank() == "3") {
+    if (this.getUserRank() != "biralo") {
       this.http.get('http://localhost:5200/biralodb/getBiralokForPub:pubId',
         { params: { "pubId": this.route.snapshot.paramMap.get('id') ?? "" } }).subscribe(data => {
-          this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
-            { params: { "email": (data as any)["biralo1_email"] } }).subscribe(biro1 => {
-              this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
-                { params: { "email": (data as any)["biralo2_email"] } }).subscribe(biro2 => {
-                  if (data != undefined) {
-                    this.hozzarendeltBiralok.push([(biro1 as any)["name"], ((data as any)["biralo1_approved"] as boolean) ? "Elfogadva" : "Elutasítva"]);
-                    this.hozzarendeltBiralok.push([(biro2 as any)["name"], ((data as any)["biralo2_approved"] as boolean) ? "Elfogadva" : "Elutasítva"]);
-                  }
-                }, error => console.log(error));
-
-            }, error => console.log(error));
+          console.log(data)
+          for (let biralo of (data as any[])) {
+            this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
+              { params: { "email": biralo["biralo_email"] } }).subscribe(biro => {
+                if (biro != undefined) {
+                  this.hozzarendeltBiralok.push([(biro as any)["name"], ((data as any)["biralo1_approved"] as boolean) ? "Elfogadva" : "Elutasítva"]);
+                }
+              }, error => console.log(error));
+          }
         }, error => console.log(error));
     }
   }
@@ -88,25 +86,30 @@ export class ViewPublicationComponent implements OnInit {
         () => { setTimeout(() => { this.reviewSaved = false; }, 2000) });
   }
 
-  setBiralok() {
-    const body = new URLSearchParams();
-    let biralo1_email = (<HTMLInputElement>document.getElementById('biralo_1')).value;
-    let biralo2_email = (<HTMLInputElement>document.getElementById('biralo_2')).value;
+  setBiralo1() {
+    this.setBiralo((<HTMLInputElement>document.getElementById('biralo_1')).value);
+  }
 
-    body.set('pubId', this.route.snapshot.paramMap.get('id') ?? "");
-    body.set('biralo1_email', biralo1_email);
-    body.set('biralo2_email', biralo2_email);
-    body.set('biralo1_approved', "false");
-    body.set('biralo2_approved', "false");
+  setBiralo2() {
+    this.setBiralo((<HTMLInputElement>document.getElementById('biralo_2')).value);
+  }
 
+  setBiralo(biralo_email: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
+
+    const body = new URLSearchParams();
+    body.set('pubId', this.route.snapshot.paramMap.get('id') ?? "");
+    body.set('biralo_email', biralo_email);
+    body.set('biralo_approved', "false");
+
 
     return this.http.post('http://localhost:5200/biralodb/addBiraloToPub', body, { headers: headers })
       .subscribe(
         data => { },
         error => console.log(error),
         () => { });
+
   }
 }

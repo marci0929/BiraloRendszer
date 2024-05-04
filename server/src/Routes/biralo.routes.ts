@@ -139,7 +139,6 @@ export function makeRouter(passport: PassportStatic) {
 
     biraloRouter.get('/getPublicationById:id', async (req: Request, res: Response) => {
         let pubIdsForEmail = await Publication.findOne({ id: req.query.id });
-        console.log(req.query.id)
         res.send(pubIdsForEmail).status(200);
     });
 
@@ -149,12 +148,9 @@ export function makeRouter(passport: PassportStatic) {
     });
 
     biraloRouter.post('/addBiraloToPub', async (req: Request, res: Response) => {
-        const filter = { pubId: req.body.pubId };
+        const filter = { pubId: req.body.pubId, biralo_email: req.body.biralo_email };
         const update = {
-            biralo1_email: req.body.biralo1_email,
-            biralo2_email: req.body.biralo2_email,
-            biralo1_approved: req.body.biralo1_approved,
-            biralo2_approved: req.body.biralo2_approved,
+            biralo_approved: req.body.biralo_approved,
         };
 
         BiraloPubConnection.findOneAndUpdate(filter, update, {
@@ -168,13 +164,18 @@ export function makeRouter(passport: PassportStatic) {
     });
 
     biraloRouter.get('/getBiralokForPub:pubId', async (req: Request, res: Response) => {
-        let biralok = await BiraloPubConnection.findOne({ pubId: req.query.pubId });
+        let biralok = await BiraloPubConnection.find({ pubId: req.query.pubId });
         res.send(biralok).status(200);
     });
 
     biraloRouter.get('/getUserByEmail:email', async (req: Request, res: Response) => {
         let user = await User.findOne({ email: req.query.email });
         res.send(user).status(200);
+    });
+
+    biraloRouter.get('/getPubsForBiralo:email:approved', async (req: Request, res: Response) => {
+        let pubs = await BiraloPubConnection.find({ biralo_email: req.query.email, biralo_approve: req.query.approved });
+        res.send(pubs).status(200);
     });
 
     return biraloRouter;

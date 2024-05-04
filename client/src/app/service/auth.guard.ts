@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(): boolean {
-    if (getUserRank() == '0') {
+    if (getUserRank() == '') {
       this.router.navigate(['/']);
       return false;
     } else {

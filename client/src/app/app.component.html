@@ -1,27 +1,27 @@
 <div class="header">
   <h1>Publikáció bíráló weboldal</h1>
-  <div class="links" *ngIf="getUserRank() == '0'">
+  <div class="links" *ngIf="getUserRank() == ''">
     <a routerLink="/login">Bejelentkezés</a>
     <a routerLink="/register">Regisztráció</a>
   </div>
 
   <!-- Biralo oldalai  -->
-  <div class="biralo" *ngIf="getUserRank() == '1'">
+  <div class="biralo" *ngIf="getUserRank() == 'biralo'">
     <a routerLink="/waitingApproval">Bírálatra vár</a>
   </div>
 
   <!-- Szerkeszto oldalai -->
-  <div class="szerkeszto" *ngIf="getUserRank() == '2'">
+  <div class="szerkeszto" *ngIf="getUserRank() == 'szerkeszto'">
     <a routerLink="/reviewPublication">Publickáció értékelése</a>
   </div>
 
   <!-- Szerzo oldalai -->
-  <div class="szerzo" *ngIf="getUserRank() == '3'">
+  <div class="szerzo" *ngIf="getUserRank() == 'szerzo'">
     <a routerLink="/newPublication">Új publikáció</a>
     <a routerLink="/myPublications">Publikációim</a>
   </div>
 
-  <div class="links" *ngIf="getUserRank() != '0'">
+  <div class="links" *ngIf="getUserRank() != ''">
     <a routerLink="/logout">Kijelentkezés</a>
   </div>
 </div>

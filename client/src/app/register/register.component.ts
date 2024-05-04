@@ -64,17 +64,7 @@ export class RegisterComponent implements OnInit {
     };
     this.authService.register(this.signupForm.value).subscribe({
       next: (data) => {
-        let rank = this.signupForm.value["rank"]
-        let rank_val = 0;
-        switch (rank) {
-          case "biralo": rank_val = 1;
-            break;
-          case "szerkeszto": rank_val = 2;
-            break;
-          case "szerzo": rank_val = 3;
-            break;
-        }
-        sessionStorage.setItem("user_rank", rank_val.toString());
+        sessionStorage.setItem("user_rank", this.signupForm.value["rank"] ?? "");
         sessionStorage.setItem("currentUserEmail", user.email);
         this.router.navigateByUrl("/home");
         console.log(data);
