@@ -18,8 +18,11 @@
     <ng-template class="no-reviewer" #biro2else>
       Jelenleg nincs kiválasztva.
     </ng-template>
-    <div *ngIf="bothBiraloAccepted()" class="accepted-text">
-      <h2>A bírálatot mindkét bíráló elfogadta!</h2>
+    <div *ngIf="bothBiraloAccepted() == 1" class="accepted-text">
+      <h2>A publikációt mindkét bíráló elfogadta!</h2>
+    </div>
+    <div *ngIf="bothBiraloAccepted() == 2" class="rejected-text">
+      <h2>A publikációt legalább az egyik bíráló elutasította!</h2>
     </div>
   </div>
   <ng-template #elseBlock>

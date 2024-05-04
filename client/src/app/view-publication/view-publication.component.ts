@@ -158,15 +158,19 @@ export class ViewPublicationComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  bothBiraloAccepted(): boolean {
+  bothBiraloAccepted(): number {
     if (this.hozzarendeltBiralok.length != 2) {
-      return false;
+      return 0;
     }
 
     if (this.hozzarendeltBiralok[0][1] == "Elfogadva" && this.hozzarendeltBiralok[1][1] == "Elfogadva") {
-      return true;
+      return 1;
     }
 
-    return false;
+    if (this.hozzarendeltBiralok[0][1] == "Elutasítva" || this.hozzarendeltBiralok[1][1] == "Elutasítva") {
+      return 2;
+    }
+
+    return 0;
   }
 }
