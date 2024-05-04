@@ -1,37 +1,43 @@
 <div class="main-div">
-  <div *ngIf="getUserRank() != 'biralo'; else elseBlock">
-    1. Bíráló:
-    <div *ngIf="hozzarendeltBiralok[0] != undefined">
-      {{hozzarendeltBiralok[0][0]}}. Értékelés: {{hozzarendeltBiralok[0][1]}}
+  <div class="reviews" *ngIf="getUserRank() != 'biralo'; else elseBlock">
+    <div class="reviewer">
+      1. Bíráló:
+      <div *ngIf="hozzarendeltBiralok[0] != undefined; else biro1else">
+        {{hozzarendeltBiralok[0][0]}}. Értékelés: {{hozzarendeltBiralok[0][1]}}
+      </div>
     </div>
-    <ng-template #elseBlock>
+    <ng-template class="no-reviewer" #biro1else>
       Jelenleg nincs kiválasztva.
     </ng-template>
-    2. Bíráló:
-    <div *ngIf="hozzarendeltBiralok[1] != undefined">
-      {{hozzarendeltBiralok[1][0]}}. Értékelés: {{hozzarendeltBiralok[1][1]}}
+    <div class="reviewer">
+      2. Bíráló:
+      <div *ngIf="hozzarendeltBiralok[1] != undefined; else biro2else">
+        {{hozzarendeltBiralok[1][0]}}. Értékelés: {{hozzarendeltBiralok[1][1]}}
+      </div>
     </div>
-    <ng-template #elseBlock>
+    <ng-template class="no-reviewer" #biro2else>
       Jelenleg nincs kiválasztva.
     </ng-template>
   </div>
   <ng-template #elseBlock>
-    <div>
-      Bírálat elfogadása:
+    <div class="accept-review">
+      <h2>Bírálat elfogadása</h2>
       <form>
-        <button type="submit" (click)="acceptReview()">Elfogadás</button>
+        <button class="accept-button" type="submit" (click)="acceptReview()">Elfogadás</button>
       </form>
     </div>
   </ng-template>
-  <h1>{{pubName}}</h1>
-  <div>{{pubContent}}</div>
+  <div class="publication-content">
+    <h1>{{pubName}}</h1>
+    <p>{{pubContent}}</p>
+  </div>
 
   <div *ngIf="getUserRank() != 'szerkeszto'">
     <div *ngIf="reviewContent == ''; else elseBlock">
       Nem érkezett még értékelés.
     </div>
     <ng-template #elseBlock>
-      <div>
+      <div class="review-content">
         Szerkesztő értékelése:
         <p>
           {{reviewContent}}
@@ -44,7 +50,7 @@
     Review saved!
   </div>
 
-  <div *ngIf="getUserRank() == 'szerkeszto'">
+  <div class="select-reviewers" *ngIf="getUserRank() == 'szerkeszto'">
     <form (ngSubmit)="saveReview()">
       <label for="review">Véleményezés:</label>
       <textarea id="review" rows="10" class="text-input">{{reviewContent}}</textarea>

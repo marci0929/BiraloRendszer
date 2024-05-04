@@ -1,0 +1,63 @@
+.main-div {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.reviews {
+  margin-bottom: 20px;
+}
+
+.reviewer {
+  background-color: #e9ecef;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.no-reviewer {
+  color: #6c757d;
+}
+
+.accept-review {
+  margin-bottom: 20px;
+}
+
+.accept-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.accept-button:hover {
+  background-color: #0056b3;
+}
+
+.publication-content {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  text-align: justify;
+  overflow-y: scroll;
+  height: 90%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.review-content {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.select-reviewers {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}

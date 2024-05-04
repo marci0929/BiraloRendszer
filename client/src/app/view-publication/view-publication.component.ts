@@ -35,8 +35,11 @@ export class ViewPublicationComponent implements OnInit {
 
     this.http.get('http://localhost:5200/biralodb/reviewById:id',
       { params: { "id": this.route.snapshot.paramMap.get('id') ?? "" } }).subscribe(data => {
-        console.log(data);
-        this.reviewContent = (data as any)["reviewContent"];
+        if (data == undefined) {
+          this.reviewContent = "Nem érkezett még véleményezés."
+        } else {
+          this.reviewContent = (data as any)["reviewContent"];
+        }
       }, error => console.log(error));
 
     if (this.getUserRank() == "szerkeszto") {
@@ -66,6 +69,8 @@ export class ViewPublicationComponent implements OnInit {
           }
         }, error => console.log(error));
     }
+
+    console.log(this.hozzarendeltBiralok)
   }
 
   getUserRank() {
