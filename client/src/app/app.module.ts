@@ -14,6 +14,7 @@ import { MyPublicationsComponent } from './my-publications/my-publications.compo
 import { ReviewPublicationComponent } from './review-publication/review-publication.component';
 import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.component';
 import { ViewPublicationComponent } from './view-publication/view-publication.component';
+import { ViewAcceptedComponent } from './view-accepted/view-accepted.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ViewPublicationComponent } from './view-publication/view-publication.co
     LogoutComponent,
     ReviewPublicationComponent,
     WaitingApprovalComponent,
+    ViewAcceptedComponent,
   ],
   imports: [
     ViewPublicationComponent,

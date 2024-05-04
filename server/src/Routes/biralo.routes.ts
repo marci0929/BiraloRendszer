@@ -148,9 +148,10 @@ export function makeRouter(passport: PassportStatic) {
     });
 
     biraloRouter.post('/addBiraloToPub', async (req: Request, res: Response) => {
-        const filter = { pubId: req.body.pubId, biralo_email: req.body.biralo_email };
+        const filter = { pubId: req.body.pubId, biralo_num: req.body.biralo_num };
         const update = {
             biralo_approved: req.body.biralo_approved,
+            biralo_email: req.body.biralo_email
         };
 
         BiraloPubConnection.findOneAndUpdate(filter, update, {
@@ -174,8 +175,21 @@ export function makeRouter(passport: PassportStatic) {
     });
 
     biraloRouter.get('/getPubsForBiralo:email:approved', async (req: Request, res: Response) => {
-        let pubs = await BiraloPubConnection.find({ biralo_email: req.query.email, biralo_approve: req.query.approved });
+        let pubs = await BiraloPubConnection.find({ biralo_email: req.query.email, biralo_approved: req.query.approved });
         res.send(pubs).status(200);
+    });
+
+    biraloRouter.get('/acceptReview:pubId:email', async (req: Request, res: Response) => {
+        const filter = { pubId: req.query.pubId, biralo_email: req.query.email };
+        const update = {
+            biralo_approved: true,
+        };
+
+        BiraloPubConnection.findOneAndUpdate(filter, update).then(data => {
+            res.status(200).send(data);
+        }).catch(error => {
+            res.status(500).send(error);
+        });
     });
 
     return biraloRouter;

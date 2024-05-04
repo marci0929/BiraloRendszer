@@ -51,12 +51,16 @@ export class ViewPublicationComponent implements OnInit {
     if (this.getUserRank() != "biralo") {
       this.http.get('http://localhost:5200/biralodb/getBiralokForPub:pubId',
         { params: { "pubId": this.route.snapshot.paramMap.get('id') ?? "" } }).subscribe(data => {
-          console.log(data)
           for (let biralo of (data as any[])) {
             this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
               { params: { "email": biralo["biralo_email"] } }).subscribe(biro => {
                 if (biro != undefined) {
-                  this.hozzarendeltBiralok.push([(biro as any)["name"], ((data as any)["biralo1_approved"] as boolean) ? "Elfogadva" : "Elutasítva"]);
+                  let biroRecord: [string, string] = [(biro as any)["name"], ((biralo as any)["biralo_approved"] as boolean) ? "Elfogadva" : "Elutasítva"];
+                  if (biralo["biralo_num"] == 1) {
+                    this.hozzarendeltBiralok.unshift(biroRecord);
+                  } else {
+                    this.hozzarendeltBiralok.push(biroRecord);
+                  }
                 }
               }, error => console.log(error));
           }
@@ -87,29 +91,36 @@ export class ViewPublicationComponent implements OnInit {
   }
 
   setBiralo1() {
-    this.setBiralo((<HTMLInputElement>document.getElementById('biralo_1')).value);
+    this.setBiralo((<HTMLInputElement>document.getElementById('biralo_1')).value, "1");
   }
 
   setBiralo2() {
-    this.setBiralo((<HTMLInputElement>document.getElementById('biralo_2')).value);
+    this.setBiralo((<HTMLInputElement>document.getElementById('biralo_2')).value, "2");
   }
 
-  setBiralo(biralo_email: string) {
+  setBiralo(biralo_email: string, biralo_num: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
     const body = new URLSearchParams();
     body.set('pubId', this.route.snapshot.paramMap.get('id') ?? "");
+    body.set('biralo_num', biralo_num);
     body.set('biralo_email', biralo_email);
     body.set('biralo_approved', "false");
-
 
     return this.http.post('http://localhost:5200/biralodb/addBiraloToPub', body, { headers: headers })
       .subscribe(
         data => { },
         error => console.log(error),
         () => { });
+  }
 
+  acceptReview() {
+    this.http.get('http://localhost:5200/biralodb/acceptReview:pubId:email',
+      { params: { "pubId": this.route.snapshot.paramMap.get('id') ?? "", "email": sessionStorage.getItem("currentUserEmail") ?? "" } })
+      .subscribe(data => {
+        this.router.navigateByUrl("/waitingApproval");
+      }, error => console.log(error));
   }
 }

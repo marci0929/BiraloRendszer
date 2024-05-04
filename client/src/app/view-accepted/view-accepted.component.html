@@ -1,0 +1,12 @@
+<div class="main-div">
+  <h2>Elfogadott bírálatok:</h2>
+  <tr *ngFor="let pub of publications">
+    <td>
+      {{pub[1]}}
+    </td>
+
+    <td>
+      <button type="button" id={{pub[0]}} (click)="openPublication(pub[0])">Megnyitás</button>
+    </td>
+  </tr>
+</div>
