@@ -155,4 +155,16 @@ export class ViewPublicationComponent implements OnInit {
         this.router.navigateByUrl("/viewPublicationList");
       }, error => console.log(error));
   }
+
+  bothBiraloAccepted(): boolean {
+    if (this.hozzarendeltBiralok.length != 2) {
+      return false;
+    }
+
+    if (this.hozzarendeltBiralok[0][1] == "Elfogadva" && this.hozzarendeltBiralok[1][1] == "Elfogadva") {
+      return true;
+    }
+
+    return false;
+  }
 }

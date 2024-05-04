@@ -36,6 +36,13 @@
   cursor: pointer;
 }
 
+.accepted-text {
+  color: #32cd32;
+  font-size: medium;
+  font-weight: bold;
+  text-shadow: 1px 1px 0px grey;
+}
+
 .accept-button:hover {
   background-color: #0056b3;
 }
