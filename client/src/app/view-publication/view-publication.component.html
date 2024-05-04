@@ -50,28 +50,34 @@
     </ng-template>
   </div>
 
-  <div class="overlay" *ngIf="reviewSaved">
-    Review saved!
+
+  <div class="szerkesztoReview" *ngIf="getUserRank() == 'szerkeszto'">
+    <form (ngSubmit)="saveReview()">
+      <div class="velemenyezesLabel">Véleményezés:</div>
+      <textarea id="review" rows="10" class="review-input">{{reviewContent}}</textarea><br>
+      <button class="submit-button" type="submit">Bírálat beküldése</button>
+      <div class="overlay" *ngIf="reviewSaved">
+        Bírálat elküldve
+      </div>
+    </form>
+  </div>
+
+  <div class="overlay" *ngIf="this.biraloSet">
+    Bíráló sikeresen beállítva!
   </div>
 
   <div class="select-reviewers" *ngIf="getUserRank() == 'szerkeszto'">
-    <form (ngSubmit)="saveReview()">
-      <label for="review">Véleményezés:</label>
-      <textarea id="review" rows="10" class="text-input">{{reviewContent}}</textarea>
-      <button class="submit-button" type="submit">Publikáció beküldése</button>
-    </form>
-
-    <form (ngSubmit)="setBiralo1()">
-      <label for="biralo_1">1. bíráló kiválasztása:</label>
-      <select id="biralo_1" name="biralok">
+    <form (ngSubmit)="setBiralo1()" class="biralo-select">
+      <label for="biralo_1">1. bíráló kiválasztása: </label>
+      <select id="biralo_1" name="biralok" class="dropdown">
         <option *ngFor="let biralo of biraloLista" value="{{biralo.email}}">{{biralo.name}} ({{biralo.email}})</option>
       </select>
       <button class="submit-button" type="submit">1. Bíráló mentése</button>
     </form>
 
-    <form (ngSubmit)="setBiralo2()">
-      <label for="biralo_2">2. bíráló kiválasztása:</label>
-      <select id="biralo_2" name="biralok">
+    <form (ngSubmit)="setBiralo2()" class="biralo-select">
+      <label for="biralo_2">2. bíráló kiválasztása: </label>
+      <select id="biralo_2" name="biralok" class="dropdown">
         <option *ngFor="let biralo of biraloLista" value="{{biralo.email}}">{{biralo.name}} ({{biralo.email}})</option>
       </select>
       <button class="submit-button" type="submit">2. Bíráló mentése</button>

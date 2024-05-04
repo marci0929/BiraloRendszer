@@ -25,6 +25,7 @@ label {
   margin-bottom: 20px;
   border-radius: 5px;
   border: 1px solid #ced4da;
+  white-space: pre-wrap;
 }
 
 .submit-button {
@@ -39,29 +40,3 @@ label {
 .submit-button:hover {
   background-color: #0056b3;
 }
-
-/* .publication_form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-}
-
-.text-input {
-  width: 75%;
-  margin-bottom: 20px;
-}
-
-.text-input-name {
-  width: 50%;
-  margin-bottom: 20px;
-}
-
-.submit-button {
-  padding: 10px 20px;
-  background-color: blue;
-  color: white;
-  border: none;
-  cursor: pointer;
-} */

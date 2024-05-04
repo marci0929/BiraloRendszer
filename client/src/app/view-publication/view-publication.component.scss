@@ -55,6 +55,7 @@
   overflow-y: scroll;
   height: 90%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  white-space: pre-wrap;
 }
 
 .review-content {
@@ -62,10 +63,79 @@
   background-color: #f8f9fa;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  white-space: pre-wrap;
 }
 
 .select-reviewers {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  align-items: start;
+}
+
+.review-input {
+  width: 95%;
+  padding: 10px;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  white-space: pre-wrap;
+}
+
+.velemenyezesLabel {
+  font-size: 1.1em;
+  margin: 10px;
+}
+
+.szerkesztoReview {
+  width: 95%;
+  padding: 10px;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  white-space: pre-wrap;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button:active {
+  transform: scale(0.95);
+}
+
+.biralo-select {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  white-space: pre-wrap;
+  margin: auto;
+}
+
+.dropdown {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  margin: 10px;
+  text-align: center;
+}
+
+.dropdown:hover {
+  border-color: #007bff;
 }

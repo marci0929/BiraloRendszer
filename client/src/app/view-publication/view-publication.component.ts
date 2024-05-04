@@ -24,6 +24,7 @@ export class ViewPublicationComponent implements OnInit {
   reviewSaved: boolean = false;
   biraloLista: User[] = new Array<User>();
   hozzarendeltBiralok: [string, string][] = new Array<[string, string]>();
+  biraloSet = false;
 
   ngOnInit(): void {
     this.http.get('http://localhost:5200/biralodb/getPublicationById:id',
@@ -111,6 +112,7 @@ export class ViewPublicationComponent implements OnInit {
   }
 
   setBiralo(biralo_email: string, biralo_num: string) {
+    this.biraloSet = true;
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -125,7 +127,7 @@ export class ViewPublicationComponent implements OnInit {
       .subscribe(
         data => { },
         error => console.log(error),
-        () => { });
+        () => { setTimeout(() => { this.biraloSet = false; }, 2000); });
   }
 
   acceptReview() {

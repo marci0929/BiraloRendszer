@@ -192,5 +192,20 @@ export function makeRouter(passport: PassportStatic) {
         });
     });
 
+    biraloRouter.delete('/deleteUser', (req: Request, res: Response) => {
+        if (req.isAuthenticated()) {
+            const email = req.query.email;
+            const query = User.deleteOne({ email: email });
+            query.then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            })
+        } else {
+            res.status(500).send('User is not logged in.');
+        }
+    });
+
     return biraloRouter;
 }
