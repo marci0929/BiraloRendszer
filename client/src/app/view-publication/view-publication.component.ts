@@ -58,7 +58,14 @@ export class ViewPublicationComponent implements OnInit {
             this.http.get('http://localhost:5200/biralodb/getUserByEmail:email',
               { params: { "email": biralo["biralo_email"] } }).subscribe(biro => {
                 if (biro != undefined) {
-                  let biroRecord: [string, string] = [(biro as any)["name"], ((biralo as any)["biralo_approved"] as boolean) ? "Elfogadva" : "Elutasítva"];
+                  let reviewStat = "Bírálatra vár"
+                  switch ((biralo as any)["biralo_approved"]) {
+                    case "accept": reviewStat = "Elfogadva"
+                      break;
+                    case "reject": reviewStat = "Elutasítva"
+                      break;
+                  }
+                  let biroRecord: [string, string] = [(biro as any)["name"], reviewStat];
                   if (biralo["biralo_num"] == 1) {
                     this.hozzarendeltBiralok.unshift(biroRecord);
                   } else {
@@ -112,7 +119,7 @@ export class ViewPublicationComponent implements OnInit {
     body.set('pubId', this.route.snapshot.paramMap.get('id') ?? "");
     body.set('biralo_num', biralo_num);
     body.set('biralo_email', biralo_email);
-    body.set('biralo_approved', "false");
+    body.set('biralo_approved', "waiting");
 
     return this.http.post('http://localhost:5200/biralodb/addBiraloToPub', body, { headers: headers })
       .subscribe(
@@ -122,10 +129,30 @@ export class ViewPublicationComponent implements OnInit {
   }
 
   acceptReview() {
-    this.http.get('http://localhost:5200/biralodb/acceptReview:pubId:email',
-      { params: { "pubId": this.route.snapshot.paramMap.get('id') ?? "", "email": sessionStorage.getItem("currentUserEmail") ?? "" } })
+    this.http.get('http://localhost:5200/biralodb/submitReview:pubId:email:approval',
+      {
+        params: {
+          "pubId": this.route.snapshot.paramMap.get('id') ?? "",
+          "email": sessionStorage.getItem("currentUserEmail") ?? "",
+          "approval": "accept"
+        }
+      })
       .subscribe(data => {
-        this.router.navigateByUrl("/waitingApproval");
+        this.router.navigateByUrl("/viewPublicationList");
+      }, error => console.log(error));
+  }
+
+  rejectReview() {
+    this.http.get('http://localhost:5200/biralodb/submitReview:pubId:email:approval',
+      {
+        params: {
+          "pubId": this.route.snapshot.paramMap.get('id') ?? "",
+          "email": sessionStorage.getItem("currentUserEmail") ?? "",
+          "approval": "reject"
+        }
+      })
+      .subscribe(data => {
+        this.router.navigateByUrl("/viewPublicationList");
       }, error => console.log(error));
   }
 }

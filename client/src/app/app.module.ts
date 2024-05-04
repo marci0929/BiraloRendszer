@@ -10,24 +10,18 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { NewPublicationComponent } from './new-publication/new-publication.component';
-import { MyPublicationsComponent } from './my-publications/my-publications.component';
-import { ReviewPublicationComponent } from './review-publication/review-publication.component';
-import { WaitingApprovalComponent } from './waiting-approval/waiting-approval.component';
 import { ViewPublicationComponent } from './view-publication/view-publication.component';
-import { ViewAcceptedComponent } from './view-accepted/view-accepted.component';
+import { ViewPublicationListComponent } from './view-publication-list/view-publication-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LogoutComponent,
-    ReviewPublicationComponent,
-    WaitingApprovalComponent,
-    ViewAcceptedComponent,
+    ViewPublicationListComponent,
   ],
   imports: [
     ViewPublicationComponent,
-    MyPublicationsComponent,
     NewPublicationComponent,
     RegisterComponent,
     LoginComponent,

@@ -8,19 +8,20 @@
 
     <!-- Biralo oldalai  -->
     <div class="biralo" *ngIf="getUserRank() == 'biralo'">
-      <a routerLink="/waitingApproval">Bírálatra vár</a>
+      <a routerLink="/viewPublicationList">Bírálatra vár</a>
       <a routerLink="/viewAccepted">Elfogadott bírálatok</a>
+      <a routerLink="/viewRejected">Elutasított bírálatok</a>
     </div>
 
     <!-- Szerkeszto oldalai -->
     <div class="szerkeszto" *ngIf="getUserRank() == 'szerkeszto'">
-      <a routerLink="/reviewPublication">Publickáció értékelése</a>
+      <a routerLink="/viewPublicationList">Publickáció értékelése</a>
     </div>
 
     <!-- Szerzo oldalai -->
     <div class="szerzo" *ngIf="getUserRank() == 'szerzo'">
       <a routerLink="/newPublication">Új publikáció</a>
-      <a routerLink="/myPublications">Publikációim</a>
+      <a routerLink="/viewPublicationList">Publikációim</a>
     </div>
 
     <div class="logoutLink" *ngIf="getUserRank() != ''">

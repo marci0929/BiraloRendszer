@@ -20,10 +20,11 @@
     </ng-template>
   </div>
   <ng-template #elseBlock>
-    <div class="accept-review">
-      <h2>Bírálat elfogadása</h2>
+    <div class="submit-review">
+      <h2>Bírálat beküldése</h2>
       <form>
-        <button class="accept-button" type="submit" (click)="acceptReview()">Elfogadás</button>
+        <button class="review-button" type="submit" (click)="acceptReview()">Elfogadás</button>
+        <button class="review-button" type="submit" (click)="rejectReview()">Elutasítás</button>
       </form>
     </div>
   </ng-template>

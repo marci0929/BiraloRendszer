@@ -33,6 +33,6 @@ export class NewPublicationComponent {
 
     this.http.post('http://localhost:5200/biralodb/addPublication', body, { headers: headers, withCredentials: true }).subscribe(data => { },
       error => { console.log(error) },
-      () => { this.router.navigateByUrl("/myPublications") });
+      () => { this.router.navigateByUrl("/viewPublicationList") });
   }
 }

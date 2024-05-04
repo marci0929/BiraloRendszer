@@ -179,10 +179,10 @@ export function makeRouter(passport: PassportStatic) {
         res.send(pubs).status(200);
     });
 
-    biraloRouter.get('/acceptReview:pubId:email', async (req: Request, res: Response) => {
+    biraloRouter.get('/submitReview:pubId:email:approval', async (req: Request, res: Response) => {
         const filter = { pubId: req.query.pubId, biralo_email: req.query.email };
         const update = {
-            biralo_approved: true,
+            biralo_approved: req.query.approval
         };
 
         BiraloPubConnection.findOneAndUpdate(filter, update).then(data => {
