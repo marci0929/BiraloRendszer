@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   signupForm!: FormGroup;
+  errorMessage: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,23 +56,33 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     console.log('Form data:', this.signupForm.value);
 
-    const user: User =
-    {
-      email: this.signupForm.value["email"],
-      name: this.signupForm.value["name"],
-      pass: this.signupForm.value["pass"],
-      rank: this.signupForm.value["rank"]
-    };
-    this.authService.register(this.signupForm.value).subscribe({
-      next: (data) => {
-        sessionStorage.setItem("user_rank", this.signupForm.value["rank"] ?? "");
-        sessionStorage.setItem("currentUserEmail", user.email);
-        this.router.navigateByUrl("/home");
-        console.log(data);
-      }, error: (err) => {
-        console.log(err);
+    this.authService.getUserByEmail(this.signupForm.value["email"]).subscribe(data => {
+      if (data != undefined) {
+        this.errorMessage = "Ezzel az email címmel már létezik regisztrált fiók!";
+        setTimeout(() => {
+          this.errorMessage = "";
+        }, 2000);
+        return;
       }
-    });
+
+      const user: User =
+      {
+        email: this.signupForm.value["email"],
+        name: this.signupForm.value["name"],
+        pass: this.signupForm.value["pass"],
+        rank: this.signupForm.value["rank"]
+      };
+      this.authService.register(this.signupForm.value).subscribe({
+        next: (data) => {
+          sessionStorage.setItem("user_rank", this.signupForm.value["rank"] ?? "");
+          sessionStorage.setItem("currentUserEmail", user.email);
+          this.router.navigateByUrl("/home");
+          console.log(data);
+        }, error: (err) => {
+          console.log(err);
+        }
+      });
+    }, error => console.log(error));
 
   }
 }

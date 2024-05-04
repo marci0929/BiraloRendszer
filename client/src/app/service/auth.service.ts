@@ -47,4 +47,8 @@ export class AuthService {
   checkAuth() {
     return this.http.get<boolean>('http://localhost:5200/biralodb/checkAuth', { withCredentials: true });
   }
+
+  getUserByEmail(email: string) {
+    return this.http.get('http://localhost:5200/biralodb/getUserByEmail:email', { params: { "email": email } });
+  }
 }

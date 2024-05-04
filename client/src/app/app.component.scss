@@ -1,8 +1,23 @@
 .header {
   margin: auto;
   text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-container {
+  background-color: white;
+  text-align: center;
+  height: 100%;
 }
 
 a {
   margin: 0 10px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.logoutLink {
+  margin-top: 15px;
 }

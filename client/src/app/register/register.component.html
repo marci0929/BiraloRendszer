@@ -9,6 +9,9 @@
       <p *ngIf="signupForm.get('email')?.errors && signupForm.get('email')?.errors!['email']">Please enter a valid
         email.</p>
     </div>
+    <div *ngIf="errorMessage">
+      <p>{{errorMessage}}</p>
+    </div>
     <br>
     <input formControlName="name" type="text" placeholder="Name" />
     <br>
