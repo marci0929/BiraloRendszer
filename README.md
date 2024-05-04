@@ -7,4 +7,5 @@
 ---
 2.
     - Go to the `<repo_root>/server` directory
+    - install dependencies with `npm install`
     - start in terminal: `npx ts-node src/server.ts`

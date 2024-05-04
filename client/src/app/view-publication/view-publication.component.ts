@@ -82,6 +82,9 @@ export class ViewPublicationComponent implements OnInit {
   }
 
   getUserRank() {
+    if (sessionStorage.getItem('user_rank') == null) {
+      sessionStorage.setItem('user_rank', '');
+    }
     return sessionStorage.getItem('user_rank');
   }
 
